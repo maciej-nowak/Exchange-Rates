@@ -54,6 +54,11 @@ class ExchangeRatesFragment : Fragment() {
         initScrollListener()
     }
 
+    fun update(newItems: List<ExchangeItem>) {
+        items.addAll(newItems)
+        exchangeAdapter.notifyDataSetChanged()
+    }
+
     private fun initScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
