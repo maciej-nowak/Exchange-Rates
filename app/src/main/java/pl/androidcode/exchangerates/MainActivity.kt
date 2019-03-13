@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import pl.androidcode.exchangerates.adapter.model.ExchangeItem
 import pl.androidcode.exchangerates.adapter.model.ExchangeRate
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
             presenter.initialize(savedInstanceState.getLong(CURRENT_DATE))
         } else {
             presenter.initialize()
-            presenter.load()
+            presenter.loadRates()
         }
     }
 
@@ -56,10 +57,22 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
         }
     }
 
+    override fun showProgressLoadMore(enable: Boolean) {
+        if(enable) {
+            progress_bar_bottom.visibility = View.VISIBLE
+        } else {
+            progress_bar_bottom.visibility = View.GONE
+        }
+    }
+
     override fun showError() {
         exchange_rates_container.visibility = View.GONE
         progress_bar_container.visibility = View.GONE
         error_container.visibility = View.VISIBLE
+    }
+
+    override fun showErrorLoadMore() {
+        Toast.makeText(this, getString(R.string.load_previous_rates_failed), Toast.LENGTH_LONG).show()
     }
 
     override fun updateList(result: ExchangeRateTable) {
@@ -76,7 +89,7 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
     }
 
     override fun loadMore() {
-        presenter.load()
+        presenter.loadRates()
     }
 
     private fun createFragment(items: List<ExchangeItem>) {

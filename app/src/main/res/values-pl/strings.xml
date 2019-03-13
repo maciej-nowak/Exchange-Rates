@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Kursy walut</string>
     <string name="load_rates_failed_check_connection_and_try_again">Nie udało się pobrać danych. Sprawdź połączenie internetowe i spróbuj ponownie</string>
     <string name="load_data_in_progress">Trwa pobieranie danych</string>
+    <string name="load_previous_rates_failed">Nie udało się pobrać więcej danych</string>
 </resources>

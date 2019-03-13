@@ -22,20 +22,28 @@ class PresenterImpl(private val view: Contract.View) : Contract.Presenter, Inter
         interactor.uninitialize()
     }
 
-    override fun load() {
+    override fun loadRates() {
         view.showProgress(true)
         interactor.fetchData(getDateFormat())
     }
 
     override fun onFetchDataSuccess(results: ExchangeRateTable) {
         view.updateList(results)
-        view.showProgress(false)
+        if(isToday()) {
+            view.showProgress(false)
+        } else {
+            view.showProgressLoadMore(false)
+        }
         downgradeDateByOneDay()
     }
 
     override fun onFetchDataFailed() {
         view.showError()
-        view.showProgress(false)
+        if(isToday()) {
+            view.showProgress(false)
+        } else {
+            view.showProgressLoadMore(false)
+        }
     }
 
     override fun getCurrentDate(): Long {
@@ -50,5 +58,12 @@ class PresenterImpl(private val view: Contract.View) : Contract.Presenter, Inter
     private fun downgradeDateByOneDay() {
         calendar.add(Calendar.DATE, -1)
         currentDate = calendar.time
+    }
+
+    private fun isToday(): Boolean {
+        val calendarToday = Calendar.getInstance()
+        return (calendar.get(Calendar.ERA) == calendarToday.get(Calendar.ERA) &&
+                calendar.get(Calendar.YEAR) == calendarToday.get(Calendar.YEAR) &&
+                calendar.get(Calendar.DAY_OF_YEAR) == calendarToday.get(Calendar.DAY_OF_YEAR))
     }
 }

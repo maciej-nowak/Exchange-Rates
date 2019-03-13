@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name" translatable="false">Exchange Rates</string>
-    <string name="load_rates_failed_check_connection_and_try_again">Load data has failed. Try internet connection and try again</string>
+    <string name="app_name">Exchange Rates</string>
+    <string name="load_rates_failed_check_connection_and_try_again">Loading data has failed. Check internet connection and try again</string>
     <string name="load_data_in_progress">Loading data in progress</string>
+    <string name="load_previous_rates_failed">Loading more data has failed</string>
 </resources>

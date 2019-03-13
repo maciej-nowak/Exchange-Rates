@@ -61,4 +61,16 @@
 
     </LinearLayout>
 
+    <ProgressBar
+            android:id="@+id/progress_bar_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleY="3"
+            android:layout_marginBottom="-8dp"
+            android:layout_marginTop="-4dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminateOnly="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
+
 </RelativeLayout>
