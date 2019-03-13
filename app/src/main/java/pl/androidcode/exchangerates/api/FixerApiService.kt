@@ -1,4 +1,4 @@
-package pl.androidcode.exchangerates
+package pl.androidcode.exchangerates.api
 
 import io.reactivex.Observable
 import retrofit2.Retrofit
