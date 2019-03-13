@@ -11,8 +11,9 @@ interface Contract {
     }
 
     interface Presenter {
-        fun initialize()
+        fun initialize(timestamp: Long = System.currentTimeMillis())
         fun uninitialize()
         fun load()
+        fun getCurrentDate(): Long
     }
 }

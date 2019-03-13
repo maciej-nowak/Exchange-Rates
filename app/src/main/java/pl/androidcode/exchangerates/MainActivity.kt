@@ -13,19 +13,32 @@ import pl.androidcode.exchangerates.mvp.PresenterImpl
 
 class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.OnLoadMoreCallback {
 
+    companion object {
+        const val CURRENT_DATE = "CURRENT_DATE"
+    }
+
     private val presenter by lazy { PresenterImpl(this) }
     private var fragment: ExchangeRatesFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.initialize()
-        presenter.load()
+        if(savedInstanceState != null && savedInstanceState.containsKey(CURRENT_DATE)) {
+            presenter.initialize(savedInstanceState.getLong(CURRENT_DATE))
+        } else {
+            presenter.initialize()
+            presenter.load()
+        }
     }
 
     override fun onDestroy() {
         presenter.uninitialize()
         super.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putLong(CURRENT_DATE, presenter.getCurrentDate())
     }
 
     override fun onAttachFragment(fragment: Fragment?) {

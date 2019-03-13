@@ -8,10 +8,12 @@ class PresenterImpl(private val view: Contract.View) : Contract.Presenter, Inter
 
     private val interactor: Interactor = InteractorImpl(this)
 
-    private val calendar = Calendar.getInstance()
+    private lateinit var calendar: Calendar
     private lateinit var currentDate: Date
 
-    override fun initialize() {
+    override fun initialize(timestamp: Long) {
+        calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
         currentDate = calendar.time
         interactor.initialize()
     }
@@ -34,6 +36,10 @@ class PresenterImpl(private val view: Contract.View) : Contract.Presenter, Inter
     override fun onFetchDataFailed() {
         view.showError()
         view.showProgress(false)
+    }
+
+    override fun getCurrentDate(): Long {
+        return currentDate.time
     }
 
     private fun getDateFormat(): String {
