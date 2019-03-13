@@ -2,6 +2,8 @@ package pl.androidcode.exchangerates
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
 import pl.androidcode.exchangerates.api.ExchangeRateTable
 import pl.androidcode.exchangerates.mvp.Contract
 import pl.androidcode.exchangerates.mvp.PresenterImpl
@@ -23,11 +25,17 @@ class MainActivity : AppCompatActivity(), Contract.View {
     }
 
     override fun showProgress(enable: Boolean) {
-        //TODO hide or show progress bar
+        if(enable) {
+            progress_bar_container.visibility = View.VISIBLE
+        } else {
+            progress_bar_container.visibility = View.GONE
+        }
     }
 
     override fun showError() {
-        //TODO show some error message
+        exchange_rates_container.visibility = View.GONE
+        progress_bar_container.visibility = View.GONE
+        error_container.visibility = View.VISIBLE
     }
 
     override fun updateList(result: ExchangeRateTable) {
