@@ -8,11 +8,15 @@ import android.widget.TextView
 import pl.androidcode.exchangerates.R
 import pl.androidcode.exchangerates.adapter.model.ExchangeItem
 
-class ExchangeAdapter(val items: MutableList<ExchangeItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val EXCHANGE = 1
         const val DATE = 2
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: ExchangeItem)
     }
 
     class ExchangeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -48,9 +52,7 @@ class ExchangeAdapter(val items: MutableList<ExchangeItem>) : RecyclerView.Adapt
             holder as ExchangeViewHolder
             holder.nameView.text = item.exchangeRate?.currency
             holder.valueView.text = "${item.exchangeRate?.rate}"
-            holder.view.setOnClickListener {
-                //TODO
-            }
+            holder.view.setOnClickListener { listener.onItemClick(item) }
         } else {
             holder as DateViewHolder
             holder.dateView.text = item.date
