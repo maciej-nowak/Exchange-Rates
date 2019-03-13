@@ -11,7 +11,7 @@ import pl.androidcode.exchangerates.api.ExchangeRateTable
 import pl.androidcode.exchangerates.mvp.Contract
 import pl.androidcode.exchangerates.mvp.PresenterImpl
 
-class MainActivity : AppCompatActivity(), Contract.View {
+class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.OnLoadMoreCallback {
 
     private val presenter by lazy { PresenterImpl(this) }
     private var fragment: ExchangeRatesFragment? = null
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), Contract.View {
     override fun onAttachFragment(fragment: Fragment?) {
         if(fragment is ExchangeRatesFragment) {
             this.fragment = fragment
+            fragment.setOnLoadMoreCallback(this)
         }
     }
 
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity(), Contract.View {
         } else {
             fragment?.update(items)
         }
+    }
+
+    override fun loadMore() {
+        presenter.load()
     }
 
     private fun createFragment(items: List<ExchangeItem>) {

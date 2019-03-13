@@ -16,6 +16,7 @@ class ExchangeRatesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var exchangeAdapter: ExchangeAdapter
     private lateinit var items: ArrayList<ExchangeItem>
+    private var callback: OnLoadMoreCallback? = null
 
     companion object {
         const val TAG = "ExchangeRatesFragment"
@@ -29,6 +30,14 @@ class ExchangeRatesFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    interface OnLoadMoreCallback {
+        fun loadMore()
+    }
+
+    fun setOnLoadMoreCallback(callback: OnLoadMoreCallback) {
+        this.callback = callback
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +73,7 @@ class ExchangeRatesFragment : Fragment() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (isListBottom()) {
-                    //TODO load more items
+                    callback?.loadMore()
                 }
             }
         })
