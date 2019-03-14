@@ -51,8 +51,7 @@ class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItem
         return if(viewType == EXCHANGE) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exchange, parent, false) as View
             ExchangeViewHolder(view)
-        }
-        else {
+        } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_date, parent, false) as View
             DateViewHolder(view)
         }

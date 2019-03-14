@@ -14,8 +14,7 @@ import pl.androidcode.exchangerates.api.ExchangeRateTable
 import pl.androidcode.exchangerates.mvp.Contract
 import pl.androidcode.exchangerates.mvp.PresenterImpl
 
-class MainActivity : AppCompatActivity(), Contract.View,
-    ExchangeRatesFragment.OnLoadMoreCallback {
+class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.OnLoadMoreCallback {
 
     companion object {
         const val CURRENT_DATE = "CURRENT_DATE"
@@ -98,10 +97,7 @@ class MainActivity : AppCompatActivity(), Contract.View,
     private fun createFragment(items: List<ExchangeItem>) {
         fragment = ExchangeRatesFragment.newInstance(items)
         supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.exchange_rates_container, fragment!!,
-                ExchangeRatesFragment.TAG
-            )
+            .replace(R.id.exchange_rates_container, fragment!!, ExchangeRatesFragment.TAG)
             .commit()
     }
 }

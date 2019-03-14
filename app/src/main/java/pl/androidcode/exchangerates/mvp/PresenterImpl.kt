@@ -34,7 +34,11 @@ class PresenterImpl(private val view: Contract.View) : Contract.Presenter, Inter
     }
 
     override fun onFetchDataFailed() {
-        view.showError()
+        if(isToday()) {
+            view.showError()
+        } else {
+            view.showErrorLoadMore()
+        }
         showProgress(false)
     }
 
