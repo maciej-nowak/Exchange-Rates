@@ -7,8 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import pl.androidcode.exchangerates.R
 import pl.androidcode.exchangerates.adapter.model.ExchangeItem
+import java.util.*
 
 class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val currencyName: HashMap<String, String> = hashMapOf()
+    init {
+        for (item in items) {
+            item.exchangeRate?.currency?.let {
+                currencyName.put(it, Currency.getInstance(it).displayName)
+            }
+        }
+    }
 
     companion object {
         const val EXCHANGE = 1
@@ -20,9 +30,11 @@ class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItem
     }
 
     class ExchangeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val codeView: TextView
         val nameView: TextView
         val valueView: TextView
         init {
+            codeView = view.findViewById(R.id.currency_code)
             nameView = view.findViewById(R.id.currency_name)
             valueView = view.findViewById(R.id.currency_value)
         }
@@ -50,8 +62,9 @@ class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItem
         val item = items[position]
         if(holder.itemViewType == EXCHANGE) {
             holder as ExchangeViewHolder
-            holder.nameView.text = item.exchangeRate?.currency
-            holder.valueView.text = "${item.exchangeRate?.rate}"
+            holder.codeView.text = item.exchangeRate?.currency
+            holder.nameView.text = currencyName[item.exchangeRate?.currency]
+            holder.valueView.text = "%.4f".format(item.exchangeRate?.rate)
             holder.view.setOnClickListener { listener.onItemClick(item) }
         } else {
             holder as DateViewHolder

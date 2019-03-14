@@ -24,13 +24,14 @@
         <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_sad_black_48dp"/>
+                android:src="@drawable/ic_download_error"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:gravity="center"
+                android:textColor="@color/colorGray"
                 android:text="@string/load_rates_failed_check_connection_and_try_again"/>
 
     </LinearLayout>
@@ -57,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:gravity="center"
+                android:textColor="@color/colorGray"
                 android:text="@string/load_data_in_progress"/>
 
     </LinearLayout>
