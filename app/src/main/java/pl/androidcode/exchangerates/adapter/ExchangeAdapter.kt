@@ -15,7 +15,11 @@ class ExchangeAdapter(val items: MutableList<ExchangeItem>, private val listener
     init {
         for (item in items) {
             item.exchangeRate?.currency?.let {
-                currencyName.put(it, Currency.getInstance(it).displayName)
+                try {
+                    currencyName.put(it, Currency.getInstance(it).displayName)
+                } catch (exception: Exception) {
+                    //currency code not supported
+                }
             }
         }
     }

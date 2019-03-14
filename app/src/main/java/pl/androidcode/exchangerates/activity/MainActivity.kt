@@ -42,7 +42,9 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState?.putLong(CURRENT_DATE, presenter.getCurrentDate())
+        if(supportFragmentManager.findFragmentByTag(ExchangeRatesFragment.TAG) != null) {
+            outState?.putLong(CURRENT_DATE, presenter.getCurrentDate())
+        }
     }
 
     override fun onAttachFragment(fragment: Fragment?) {
