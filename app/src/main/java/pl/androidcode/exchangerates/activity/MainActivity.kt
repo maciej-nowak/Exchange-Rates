@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initErrorContainerClickListener()
         if(savedInstanceState != null && savedInstanceState.containsKey(CURRENT_DATE)) {
             presenter.initialize(savedInstanceState.getLong(CURRENT_DATE))
         } else {
@@ -99,5 +100,13 @@ class MainActivity : AppCompatActivity(), Contract.View, ExchangeRatesFragment.O
         supportFragmentManager.beginTransaction()
             .replace(R.id.exchange_rates_container, fragment!!, ExchangeRatesFragment.TAG)
             .commit()
+    }
+
+    private fun initErrorContainerClickListener() {
+        error_container.setOnClickListener {
+            error_container.visibility = View.GONE
+            exchange_rates_container.visibility = View.VISIBLE
+            presenter.loadRates()
+        }
     }
 }

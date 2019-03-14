@@ -9,7 +9,7 @@ import pl.androidcode.exchangerates.R
 import pl.androidcode.exchangerates.adapter.model.ExchangeItem
 import java.util.*
 
-class ExchangeAdapter(val items: MutableList<ExchangeItem>, val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExchangeAdapter(val items: MutableList<ExchangeItem>, private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val currencyName: HashMap<String, String> = hashMapOf()
     init {
